@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/03 15:15:38 by alebaron          #+#    #+#             */
-/*   Updated: 2026/02/03 16:41:01 by alebaron         ###   ########.fr       */
+/*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
+/*   Updated: 2026/02/05 14:23:44 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@
 //         Includes
 // ==========================
 
-
+# include <stdlib.h>
+# include <unistd.h>
+# include <string.h>
+# include <stdio.h>
 
 // ==========================
 //         Structures
@@ -37,9 +40,24 @@ typedef struct s_args
 
 typedef struct s_coder
 {
-	int		number;
-	t_coder	*previous;
-	t_coder	*next;
+	int				number;
+	struct s_coder	*previous;
+	struct s_coder	*next;
 }			t_coder;
+
+// ==========================
+//         Prototype
+// ==========================
+
+
+//      check_args.c
+// =====================
+
+int	check_arg(int argc, char **argv);
+
+//        utils.c
+// =====================
+
+int	exit_program(char *end_message);
 
 #endif

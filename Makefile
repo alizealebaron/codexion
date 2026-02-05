@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/02/03 15:29:20 by alebaron         ###   ########.fr        #
+#    Updated: 2026/02/05 14:20:37 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC        = cc
 RM        = rm -rf
 NAME      = codexion
 CFLAGS    = -Wall -Werror -Wextra
-LIB_DIR   = sources
+LIB_DIR   = coders
 OBJ_DIR   = obj
 
 # ==========================
@@ -37,9 +37,9 @@ BOLD    := \033[1m
 #         Sources
 # ==========================
 
-LIB_SRCS = ${LIB_DIR}/codexion.c \
-           ${LIB_DIR}/test.c     \
-           ${LIB_DIR}/test1.c    \
+LIB_SRCS = ${LIB_DIR}/codexion.c   \
+           ${LIB_DIR}/check_args.c \
+           ${LIB_DIR}/utils.c      \
 
 # Modification : On remplace le chemin 'sources/' par 'obj/' et '.c' par '.o'
 LIB_OBJS = $(LIB_SRCS:${LIB_DIR}/%.c=${OBJ_DIR}/%.o)
