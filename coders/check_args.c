@@ -6,19 +6,43 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:24 by alebaron          #+#    #+#             */
-/*   Updated: 2026/02/05 14:24:21 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/02/09 11:39:47 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
+static int	is_num(char *str);
+static int	check_scheduler(char *str);
+
 int	check_arg(int argc, char **argv)
 {
+	int	i;
+
 	if (argc != 9)
 		return (0);
+	i = 1;
+	while (i < 8)
+	{
+		if (!(is_num(argv[i])) || atoi(argv[i]) == -1)
+			return (0);
+		i++;
+	}
+	return (check_scheduler(argv[i]));
+}
 
-	char *str = argv[0];
-	printf("%s", str);
+static int	is_num(char *str)
+{
+	while (*str)
+	{
+		if (*str < '0' || *str > '9')
+			return (0);
+		str++;
+	}
 	return (1);
 }
 
+static int	check_scheduler(char *str)
+{
+	return (!(strcmp(str, "edf")) || !(strcmp(str, "fifo")));
+}
