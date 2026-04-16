@@ -1,27 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   simulation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 14:10:33 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/16 11:40:56 by alebaron         ###   ########.fr       */
+/*   Created: 2026/04/16 13:26:59 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/16 13:27:00 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
-
-int	main(int argc, char **argv)
-{
-	t_args	*struc_arg;
-
-	if (!check_arg(argc, argv))
-		return (exit_program("Error: Invalid arguments.\n"));
-
-	struc_arg = init_args(argv);
-	
-
-	free_all(struc_arg);
-	return (0);
-}

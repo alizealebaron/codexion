@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:24 by alebaron          #+#    #+#             */
-/*   Updated: 2026/02/09 11:39:47 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/16 09:49:09 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	check_arg(int argc, char **argv)
 	while (i < 8)
 	{
 		if (!(is_num(argv[i])) || atoi(argv[i]) == -1)
+			return (0);
+		if (atoi(argv[i]) < 1)
 			return (0);
 		i++;
 	}

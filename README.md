@@ -24,6 +24,17 @@
 
 ## 💡 Inspirations & Sources
 
-- 
+## Le problème des philosophes
+
+- [Philosophers 42 Guide— “The Dining Philosophers Problem”](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
+
+### Informations sur les threads (fil d'exécution)
+
+- [Threads, mutex et programmation concurrente en C](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/)
+
+### Autres projets Codexion
+
+- [Projet de shadox254](https://github.com/shadox254/Codexion)
+- [Projet d'Overtekk](https://github.com/Overtekk/Codexion)
 
 **Contact :** alebaron@student.42lehavre.fr

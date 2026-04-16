@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/02/09 11:03:29 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/16 11:44:18 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <stdio.h>
+# include <pthread.h>
 
 // ==========================
 //         Structures
@@ -35,29 +36,42 @@ typedef struct s_args
 	int		time_to_refactor;
 	int		number_of_compiles_required;
 	int		dongle_cooldown;
-	char	**scheduler;
+	char	*scheduler;
 }			t_args;
+
+typedef struct s_dongle
+{
+	int				cooldown;
+	int				id;
+	pthread_mutex_t	lock;
+}			t_dongle;
 
 typedef struct s_coder
 {
 	int				number;
-	struct s_coder	*previous;
-	struct s_coder	*next;
+	pthread_t		thread;
+	t_dongle		*left_dongle;
+	t_dongle		*right_dongle;
 }			t_coder;
 
 // ==========================
 //         Prototype
 // ==========================
 
-
 //      check_args.c
 // =====================
 
-int	check_arg(int argc, char **argv);
+int		check_arg(int argc, char **argv);
 
 //        utils.c
 // =====================
 
-int	exit_program(char *end_message);
+int		exit_program(char *end_message);
+void	free_all(t_args *args);
+
+//     init_struct.c
+// =====================
+
+t_args	*init_args(char **argv);
 
 #endif
