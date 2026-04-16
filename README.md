@@ -7,6 +7,15 @@
 
 ---
 
+<div align="center">
+  <p>
+      <!-- <img src="https://img.shields.io/badge/score-125%20%2F%20100-success?style=for-the-badge" /> -->
+      <img src="https://img.shields.io/github/languages/count/alizealebaron/codexion?style=for-the-badge&logo=" />
+      <img src="https://img.shields.io/github/languages/top/alizealebaron/codexion?style=for-the-badge" />
+      <img src="https://img.shields.io/github/last-commit/alizealebaron/codexion?style=for-the-badge" />
+  </p>
+</div>
+
 ## ⚠️ Avant propos
 
 - **Portfolio :** Ce repetoire se concentre sur un seul sujet. Vous pouvez retrouver tous mes projets sur mon [profil](https://github.com/alizealebaron).
@@ -19,8 +28,6 @@
 **Commencé le :** 03/02/2025
 
 **Rendu le :** Non rendu.
-
-**Note :** Non noté.
 
 ## 💡 Inspirations & Sources
 
