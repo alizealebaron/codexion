@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/27 09:32:40 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:43:09 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,13 @@
 # include <string.h>
 # include <stdio.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 // ==========================
 //         Structures
 // ==========================
 
-typedef struct s_codexion	t_coder;
+typedef struct s_codexion	t_codexion;
 typedef struct s_dongle		t_dongle;
 typedef struct s_coder		t_coder;
 
@@ -45,6 +46,7 @@ typedef struct s_codexion
 	t_coder		*coders;
 	t_dongle	*dongles;
 
+	int			start_time;
 }			t_codexion;
 
 typedef struct s_dongle
@@ -57,6 +59,9 @@ typedef struct s_dongle
 typedef struct s_coder
 {
 	int				number;
+	int				compiles_done;
+	int				is_burned_out;
+	int				last_compile_time;
 	pthread_t		thread;
 	t_dongle		*left_dongle;
 	t_dongle		*right_dongle;
@@ -80,6 +85,16 @@ void	free_all(t_codexion *args);
 //     init_struct.c
 // =====================
 
-t_codexion	*init_args(char **argv);
+t_codexion	*init_data(char **argv);
+
+//     coder_routine.c
+// =====================
+
+void    *coders_routine(void *arg);
+
+//     time_utils.c
+// =====================
+
+int get_time(void);
 
 #endif

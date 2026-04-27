@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/04/16 10:09:55 by alebaron         ###   ########.fr        #
+#    Updated: 2026/04/27 14:38:50 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,15 @@ BOLD    := \033[1m
 #         Sources
 # ==========================
 
-LIB_SRCS = ${LIB_DIR}/codexion.c     \
-           ${LIB_DIR}/check_args.c   \
-           ${LIB_DIR}/utils.c        \
-           ${LIB_DIR}/init_struct.c  \
+LIB_SRCS = $(LIB_DIR)/codexion.c         \
+           $(LIB_DIR)/check_args.c       \
+           $(LIB_DIR)/coder_routine.c    \
+           $(LIB_DIR)/utils/exit_utils.c \
+           $(LIB_DIR)/utils/time_utils.c \
+           $(LIB_DIR)/init_struct.c      \
+           $(LIB_DIR)/simulation.c
 
-# Modification : On remplace le chemin 'sources/' par 'obj/' et '.c' par '.o'
-LIB_OBJS = $(LIB_SRCS:${LIB_DIR}/%.c=${OBJ_DIR}/%.o)
+LIB_OBJS = $(LIB_SRCS:%.c=${OBJ_DIR}/%.o)
 
 # ==========================
 #         Règles
@@ -52,8 +54,8 @@ LIB_OBJS = $(LIB_SRCS:${LIB_DIR}/%.c=${OBJ_DIR}/%.o)
 all: $(NAME)
 
 # Règle pour créer le dossier obj et compiler les objets dedans
-$(OBJ_DIR)/%.o: $(LIB_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(@D)
 	@echo "$(CYAN)[Compiling]$(RESET) 🦆 $(BLUE)$(BOLD)$<$(RESET)"
 	@$(CC) $(CFLAGS) -c $< -o $@
 

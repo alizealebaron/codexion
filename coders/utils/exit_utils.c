@@ -1,27 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   exit_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 14:10:33 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/27 10:39:34 by alebaron         ###   ########.fr       */
+/*   Created: 2026/02/05 14:10:54 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/27 14:48:42 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../codexion.h"
 
-int	main(int argc, char **argv)
+int	exit_program(char *end_message)
 {
-	t_codexion	*data;
+	write(2, end_message, strlen(end_message));
+	return (1);
+}
 
-	if (!check_arg(argc, argv))
-		return (exit_program("Error: Invalid arguments.\n"));
-
-	data = init_data(argv);
-	
-
-	free_all(data);
-	return (0);
+void	free_all(t_codexion *args)
+{
+	if (!args)
+		return ;
+	free(args->dongles);
+	free(args->coders);
+	free(args);
 }

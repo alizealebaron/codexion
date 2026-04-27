@@ -35,9 +35,10 @@
 
 - [Philosophers 42 Guide— “The Dining Philosophers Problem”](https://medium.com/@ruinadd/philosophers-42-guide-the-dining-philosophers-problem-893a24bc0fe2)
 
-### Informations sur les threads (fil d'exécution)
+### Outils de programmation en C
 
 - [Threads, mutex et programmation concurrente en C](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/)
+- [Manuel linux: timeval](https://man7.org/linux/man-pages/man3/timeval.3type.html)
 
 ### Visualiseur de codexion
 

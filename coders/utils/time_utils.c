@@ -1,24 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   time_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 14:10:54 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/17 12:32:13 by alebaron         ###   ########.fr       */
+/*   Created: 2026/04/27 14:09:15 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/27 14:14:33 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../codexion.h"
 
-int	exit_program(char *end_message)
+int get_time(void)
 {
-	write(2, end_message, strlen(end_message));
-	return (1);
-}
+    struct timeval start;
 
-void	free_all(t_codexion *args)
-{
-	free(args);
+    gettimeofday(&start, NULL);
+    return ((start.tv_sec * 1000) + (start.tv_usec / 1000));
 }

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   coder_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 14:10:33 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/27 10:39:34 by alebaron         ###   ########.fr       */
+/*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/27 14:40:44 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-int	main(int argc, char **argv)
-{
-	t_codexion	*data;
-
-	if (!check_arg(argc, argv))
-		return (exit_program("Error: Invalid arguments.\n"));
-
-	data = init_data(argv);
-	
-
-	free_all(data);
-	return (0);
-}
+// void    *coders_routine(void *arg)
+// {
+//     t_coder *coder = (t_coder *)arg;
+    
+    
+// }

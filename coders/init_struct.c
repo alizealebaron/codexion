@@ -6,58 +6,72 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:51:49 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/16 12:20:21 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/27 14:50:25 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "codexion.h"
 
-static t_coder	*create_coder(int num, t_dongle *d_left, t_dongle *d_right);
+static t_dongle	*init_dongle(int nb_dongle);
+static t_coder	*init_coders(int nb_coders);
 
-t_args	*init_args(char **argv)
+t_codexion	*init_data(char **argv)
 {
-	t_args	*struc_args;
+	t_codexion	*data;
 
-	struc_args = malloc(sizeof(t_args));
-	if (!struc_args)
+	data = malloc(sizeof(*data));
+	if (!data)
 		return (NULL);
-	struc_args->number_of_coders = atoi(argv[0]);
-	struc_args->time_to_burnout = atoi(argv[1]);
-	struc_args->time_to_compile = atoi(argv[2]);
-	struc_args->time_to_debug = atoi(argv[3]);
-	struc_args->time_to_refactor = atoi(argv[4]);
-	struc_args->number_of_compiles_required = atoi(argv[5]);
-	struc_args->dongle_cooldown = atoi(argv[6]);
-	struc_args->scheduler = argv[7];
-	return (struc_args);
+	data->number_of_coders = atoi(argv[0]);
+	data->time_to_burnout = atoi(argv[1]);
+	data->time_to_compile = atoi(argv[2]);
+	data->time_to_debug = atoi(argv[3]);
+	data->time_to_refactor = atoi(argv[4]);
+	data->nb_compiles_required = atoi(argv[5]);
+	data->dongle_cooldown = atoi(argv[6]);
+	data->scheduler = argv[7];
+	data->dongles = init_dongle(data->number_of_coders);
+	data->coders = init_coders(data->number_of_coders);
+	data->start_time = get_time();
+	return (data);
 }
 
-t_coder	**init_coders(t_args *args)
+static t_dongle	*init_dongle(int nb_dongle)
 {
-	t_coder	**coders;
+	t_dongle	*dongles;
+	int			i;
+
+	dongles = malloc(sizeof(t_dongle) * nb_dongle);
+	if (!dongles)
+		return (NULL);
+	i = 0;
+	while (i < nb_dongle)
+	{
+		dongles[i].id = i;
+		dongles[i].cooldown = 0;
+		pthread_mutex_init(&dongles[i].lock, NULL);
+		i++;
+	}
+	return (dongles);
+}
+
+static t_coder	*init_coders(int nb_coders)
+{
+	t_coder	*coders;
 	int		i;
 
-	coders = malloc(sizeof(t_coder) * args->number_of_coders);
+	coders = malloc(sizeof(t_coder) * nb_coders);
 	if (!coders)
 		return (NULL);
 	i = 0;
-	while (i < args->number_of_coders)
+	while (i < nb_coders)
 	{
-		coders[i] = create_coder(i);
+		coders[i].number = i;
+		coders[i].compiles_done = 0;
+		coders[i].is_burned_out = 0;
+		coders[i].last_compile_time = 0;
+		// pthread_create(&coders[i].thread, NULL, coders_routine, NULL);
 		i++;
 	}
-	
 	return (coders);
-}
-
-static t_coder	*create_coder(int num, t_dongle *d_left, t_dongle *d_right)
-{
-	t_coder		*coder;
-	pthread_t	tid1;
-
-	coder = malloc(sizeof(t_coder));
-	coder->number = num;
-	coder->left_dongle = d_left;
-	coder->right_dongle = d_right;
-	coder->thread = tid1;
 }
