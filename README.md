@@ -39,9 +39,14 @@
 
 - [Threads, mutex et programmation concurrente en C](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/)
 
+### Visualiseur de codexion
+
+- [Visualiseur de 0xS4cha et 69Nesta](https://codexion-visualizer.sacha-dev.me/)
+
 ### Autres projets Codexion
 
 - [Projet de shadox254](https://github.com/shadox254/Codexion)
 - [Projet d'Overtekk](https://github.com/Overtekk/Codexion)
+- [Projet de 69Nesta](https://github.com/69Nesta/42-Codexion)
 
 **Contact :** alebaron@student.42lehavre.fr

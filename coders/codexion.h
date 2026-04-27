@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/16 11:44:18 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/27 09:32:40 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,25 @@
 //         Structures
 // ==========================
 
-typedef struct s_args
+typedef struct s_codexion	t_coder;
+typedef struct s_dongle		t_dongle;
+typedef struct s_coder		t_coder;
+
+typedef struct s_codexion
 {
-	int		number_of_coders;
-	int		time_to_burnout;
-	int		time_to_compile;
-	int		time_to_debug;
-	int		time_to_refactor;
-	int		number_of_compiles_required;
-	int		dongle_cooldown;
-	char	*scheduler;
-}			t_args;
+	int			number_of_coders;
+	int			time_to_burnout;
+	int			time_to_compile;
+	int			time_to_debug;
+	int			time_to_refactor;
+	int			nb_compiles_required;
+	int			dongle_cooldown;
+	char		*scheduler;
+
+	t_coder		*coders;
+	t_dongle	*dongles;
+
+}			t_codexion;
 
 typedef struct s_dongle
 {
@@ -67,11 +75,11 @@ int		check_arg(int argc, char **argv);
 // =====================
 
 int		exit_program(char *end_message);
-void	free_all(t_args *args);
+void	free_all(t_codexion *args);
 
 //     init_struct.c
 // =====================
 
-t_args	*init_args(char **argv);
+t_codexion	*init_args(char **argv);
 
 #endif
