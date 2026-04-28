@@ -6,11 +6,11 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:24 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/16 09:49:09 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/28 09:19:52 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../codexion.h"
 
 static int	is_num(char *str);
 static int	check_scheduler(char *str);

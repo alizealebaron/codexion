@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/04/27 14:38:50 by alebaron         ###   ########.fr        #
+#    Updated: 2026/04/28 10:22:03 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,14 @@ BOLD    := \033[1m
 #         Sources
 # ==========================
 
-LIB_SRCS = $(LIB_DIR)/codexion.c         \
-           $(LIB_DIR)/check_args.c       \
-           $(LIB_DIR)/coder_routine.c    \
-           $(LIB_DIR)/utils/exit_utils.c \
-           $(LIB_DIR)/utils/time_utils.c \
-           $(LIB_DIR)/init_struct.c      \
-           $(LIB_DIR)/simulation.c
+LIB_SRCS = $(LIB_DIR)/codexion.c               \
+           $(LIB_DIR)/init/check_args.c        \
+		   $(LIB_DIR)/init/init_struct.c       \
+           $(LIB_DIR)/utils/exit_utils.c       \
+           $(LIB_DIR)/utils/time_utils.c       \
+		   $(LIB_DIR)/routine/routines.c       \
+		   $(LIB_DIR)/routine/manage_threads.c \
+    
 
 LIB_OBJS = $(LIB_SRCS:%.c=${OBJ_DIR}/%.o)
 
@@ -76,6 +77,10 @@ fclean: clean
 
 re: fclean all
 
+run: re
+	@echo "$(GREEN)$(BOLD)Running $(NAME) with 4 coders...$(RESET)"
+	@./$(NAME) 4 800 200 200 200 5 10 fifo
+
 coin: re 
 	@echo "$(YELLOW)$(BOLD)                    $(RESET)"
 	@echo "$(YELLOW)$(BOLD)    ~Coin coin~     $(RESET)"
@@ -85,5 +90,5 @@ coin: re
 	@echo "$(YELLOW)$(BOLD)                    $(RESET)"
 	@echo "$(YELLOW)$(BOLD)    ~Coin coin~     $(RESET)"
 
-.PHONY: fclean all clean re coin
+.PHONY: fclean all clean re coin run
 .SILENT:

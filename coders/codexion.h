@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/27 14:43:09 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/28 11:35:26 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ typedef struct s_coder		t_coder;
 
 typedef struct s_codexion
 {
+	pthread_t	main_thread;
+
 	int			number_of_coders;
 	int			time_to_burnout;
 	int			time_to_compile;
@@ -71,16 +73,21 @@ typedef struct s_coder
 //         Prototype
 // ==========================
 
-//      check_args.c
+//     check_args.c
 // =====================
 
 int		check_arg(int argc, char **argv);
 
-//        utils.c
+//     exit_utils.c
 // =====================
 
-int		exit_program(char *end_message);
+int		exit_program(void);
 void	free_all(t_codexion *args);
+
+//     time_utils.c
+// =====================
+
+int get_time(void);
 
 //     init_struct.c
 // =====================
@@ -90,11 +97,12 @@ t_codexion	*init_data(char **argv);
 //     coder_routine.c
 // =====================
 
+void    *main_routine(void *arg);
 void    *coders_routine(void *arg);
 
-//     time_utils.c
+//     manage_threads.c
 // =====================
 
-int get_time(void);
+void    join_thread(t_codexion *data);
 
 #endif
