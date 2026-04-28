@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 10:33:43 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/28 14:58:48 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,34 @@
 
 void    *main_routine(void *arg)
 {
-    (void) arg;
-    printf("Coucou 2\n");
+	t_codexion	*data;
 
-    return (NULL);
+	data = (t_codexion *)arg;
+	while (is_simulation_active(data))
+	{
+		if(check_burnout(data))
+		{
+			// TODO: Delete tout
+			return (NULL);
+		}
+		if (has_finished(data) == data->number_of_coders)
+		{
+			// TODO: Delete tout
+			return (NULL);
+		}
+		usleep(100);
+	}
+
+	return (NULL);
 }
 
 void    *coders_routine(void *arg)
 {
-    for (size_t i = 0; i < strlen(arg); i++)
-    {
-        printf("Test\n");
-    }
-    printf("Coucou\n");
+	for (size_t i = 0; i < strlen(arg); i++)
+	{
+		printf("Test\n");
+	}
+	printf("Coucou\n");
 
-    return (NULL);
+	return (NULL);
 }

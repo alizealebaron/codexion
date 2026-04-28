@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/04/28 10:22:03 by alebaron         ###   ########.fr        #
+#    Updated: 2026/04/28 15:04:41 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,13 +37,15 @@ BOLD    := \033[1m
 #         Sources
 # ==========================
 
-LIB_SRCS = $(LIB_DIR)/codexion.c               \
-           $(LIB_DIR)/init/check_args.c        \
-		   $(LIB_DIR)/init/init_struct.c       \
-           $(LIB_DIR)/utils/exit_utils.c       \
-           $(LIB_DIR)/utils/time_utils.c       \
-		   $(LIB_DIR)/routine/routines.c       \
-		   $(LIB_DIR)/routine/manage_threads.c \
+LIB_SRCS = $(LIB_DIR)/codexion.c                 \
+           $(LIB_DIR)/init/check_args.c          \
+		   $(LIB_DIR)/init/init_struct.c         \
+           $(LIB_DIR)/utils/exit_utils.c         \
+           $(LIB_DIR)/utils/time_utils.c         \
+           $(LIB_DIR)/utils/print_utils.c        \
+		   $(LIB_DIR)/routine/routines.c         \
+		   $(LIB_DIR)/routine/manage_threads.c   \
+		   $(LIB_DIR)/routine/simulation_check.c \
     
 
 LIB_OBJS = $(LIB_SRCS:%.c=${OBJ_DIR}/%.o)
