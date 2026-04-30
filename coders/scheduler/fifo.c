@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 10:32:45 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 16:13:35 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/30 16:30:22 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ static void	update_cooldown(t_coder *coder, t_dongle *first, t_dongle *second)
 
 static void	print_and_compile(t_coder *coder)
 {
+	print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
 	print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
 	print_message(coder->data, coder->number, LOG_COMPILING);
 	usleep(coder->data->time_to_compile);
