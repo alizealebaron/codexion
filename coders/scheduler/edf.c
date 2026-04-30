@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   codexion.c                                         :+:      :+:    :+:   */
+/*   edf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/05 14:10:33 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 10:36:36 by alebaron         ###   ########.fr       */
+/*   Created: 2026/04/30 10:32:38 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/30 11:18:15 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "codexion.h"
+#include "../codexion.h"
 
-int	main(int argc, char **argv)
+void edf(t_coder *coder)
 {
-	t_codexion	*data;
-
-	if (!check_arg(argc, argv))
-		return (exit_program());
-	data = init_data(argv);
-	join_thread(data);
-	free_all(data);
-	return (0);
+	while (coder->data->is_sim_active == 0 && coder->has_finished != 1)
+	{
+		// compile_edf(coder);
+		debug(coder);
+		refactoring(coder);
+	}
 }

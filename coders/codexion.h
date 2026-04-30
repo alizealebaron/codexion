@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 15:01:47 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/30 11:19:38 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 //         Consts
 // ==========================
 
-# define LOG_TAKE_DONGLE	"[%lld] Coder %d has taken dongle %s\n"
-# define LOG_COMPILING		"[%lld] Coder %d is compiling (%d)\n"
-# define LOG_DEBUGGING		"[%lld] Coder %d is debugging\n"
-# define LOG_REFACTOR		"[%lld] Coder %d is refactoring\n"
-# define LOG_BURNS_OUT		"[%lld] Coder %d burned out\n"
+# define LOG_TAKE_DONGLE	"%lld %d has taken dongle %s\n"
+# define LOG_COMPILING		"%lld %d is compiling (%d)\n"
+# define LOG_DEBUGGING		"%lld %d is debugging\n"
+# define LOG_REFACTOR		"%lld %d is refactoring\n"
+# define LOG_BURNS_OUT		"%lld %d burned out\n"
 # define LOG_SUCCESS		"All coders have compiled %d time. Good job !"
 
 // ==========================
@@ -74,6 +74,8 @@ typedef struct s_dongle
 
 typedef struct s_coder
 {
+	t_codexion		*data;
+
 	int				number;
 	int				compiles_done;
 	long long		last_compile_time;
@@ -134,5 +136,21 @@ int 	has_finished(t_codexion *data);
 // =====================
 
 void    join_thread(t_codexion *data);
+
+//     fifo.c
+// =====================
+
+void fifo(t_coder *coder);
+
+//     edf.c
+// =====================
+
+void edf(t_coder *coder);
+
+//     debug_and_refact.c
+// =====================
+
+void	debug(t_coder *coder);
+void	refactoring(t_coder *coder);
 
 #endif
