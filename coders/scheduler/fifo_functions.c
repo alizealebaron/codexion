@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_utils.c                                      :+:      :+:    :+:   */
+/*   fifo_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/04/28 13:28:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 16:14:55 by alebaron         ###   ########.fr       */
+/*   Created: 2026/04/30 13:12:42 by alebaron          #+#    #+#             */
+/*   Updated: 2026/04/30 15:34:08 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-void	print_message(t_codexion *data, int num_coder, char *action)
+void	get_first_dongle(t_coder *coder, t_dongle **first, t_dongle **second)
 {
-	pthread_mutex_lock(&data->print_mutex);
-
-	if (num_coder == -1 && strcmp(action, LOG_SUCCESS) == 0)
-		printf(action, data->nb_compiles_required);
-	else if (strcmp(action, LOG_BURNS_OUT) == 0)
-		printf(action, (get_time() - data->start_time), num_coder);
+	if (coder->left_dongle->id < coder->right_dongle->id)
+	{
+		*first = coder->left_dongle;
+		*second = coder->right_dongle;
+	}
 	else
-		printf(action, (get_time() - data->start_time), num_coder);
-	pthread_mutex_unlock(&data->print_mutex);
+	{
+		*first = coder->right_dongle;
+		*second = coder->left_dongle;
+	}
+}
+
+int	check_dongle_cd(t_dongle *first, t_dongle *second)
+{
+	if (first->cooldown > get_time() || second->cooldown > get_time())
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 11:19:38 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/04/30 15:52:48 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@
 //         Consts
 // ==========================
 
-# define LOG_TAKE_DONGLE	"%lld %d has taken dongle %s\n"
-# define LOG_COMPILING		"%lld %d is compiling (%d)\n"
+# define LOG_TAKE_DONGLE	"%lld %d has taken dongle\n"
+# define LOG_COMPILING		"%lld %d is compiling\n"
 # define LOG_DEBUGGING		"%lld %d is debugging\n"
 # define LOG_REFACTOR		"%lld %d is refactoring\n"
 # define LOG_BURNS_OUT		"%lld %d burned out\n"
@@ -93,64 +93,47 @@ typedef struct s_coder
 //         Prototype
 // ==========================
 
-//     check_args.c
+//     /init
 // =====================
 
-int		check_arg(int argc, char **argv);
-
-//     exit_utils.c
-// =====================
-
-int		exit_program(void);
-void	free_all(t_codexion *args);
-
-//     time_utils.c
-// =====================
-
-long long get_time(void);
-
-//     print_utils.c
-// =====================
-
-void	print_message(t_codexion *data, int num_coder, char *action);
-
-//     init_struct.c
-// =====================
+int			check_arg(int argc, char **argv);
 
 t_codexion	*init_data(char **argv);
 
-//     routines.c
+//     /routine
 // =====================
 
-void    *main_routine(void *arg);
-void    *coders_routine(void *arg);
+void    	*main_routine(void *arg);
+void    	*coders_routine(void *arg);
 
-//     simulation_check.c
+int			check_burnout(t_codexion *data);
+int  		is_simulation_active(t_codexion *data);
+int 		has_finished(t_codexion *data);
+
+void    	join_thread(t_codexion *data);
+
+//     /scheduler
 // =====================
 
-int		check_burnout(t_codexion *data);
-int  	is_simulation_active(t_codexion *data);
-int 	has_finished(t_codexion *data);
+void		fifo(t_coder *coder);
 
-//     manage_threads.c
+void		edf(t_coder *coder);
+
+void		debug(t_coder *coder);
+void		refactoring(t_coder *coder);
+void		update_coder_compile(t_coder *coder);
+
+void		get_first_dongle(t_coder *coder, t_dongle **first, t_dongle **second);
+int			check_dongle_cd(t_dongle *first, t_dongle *second);
+
+//     /utils
 // =====================
 
-void    join_thread(t_codexion *data);
+long long	get_time(void);
 
-//     fifo.c
-// =====================
+int			exit_program(void);
+void		free_all(t_codexion *args);
 
-void fifo(t_coder *coder);
-
-//     edf.c
-// =====================
-
-void edf(t_coder *coder);
-
-//     debug_and_refact.c
-// =====================
-
-void	debug(t_coder *coder);
-void	refactoring(t_coder *coder);
+void		print_message(t_codexion *data, int num_coder, char *action);
 
 #endif
