@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/04/30 15:03:40 by alebaron         ###   ########.fr        #
+#    Updated: 2026/05/01 12:10:52 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,9 +47,6 @@ LIB_SRCS = $(LIB_DIR)/codexion.c                   \
 		   $(LIB_DIR)/routine/routines.c           \
 		   $(LIB_DIR)/routine/manage_threads.c     \
 		   $(LIB_DIR)/routine/simulation_check.c   \
-		   $(LIB_DIR)/scheduler/edf.c              \
-		   $(LIB_DIR)/scheduler/fifo.c             \
-		   $(LIB_DIR)/scheduler/fifo_functions.c   \
 		   $(LIB_DIR)/scheduler/scheduler_utils.c  \
     
 

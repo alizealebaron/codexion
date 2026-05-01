@@ -21,7 +21,7 @@ int	main(int argc, char **argv)
 	if (!check_arg(argc, argv))
 		return (exit_program());
 	data = init_data(argv);
-	// join_thread(data);
+	join_thread(data);
 	free_all(data);
 	return (0);
 }

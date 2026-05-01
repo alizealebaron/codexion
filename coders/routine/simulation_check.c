@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 14:57:28 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 15:01:35 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 12:03:31 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int  is_simulation_active(t_codexion *data)
 int	check_burnout(t_codexion *data)
 {
 	int			i;
-	int			last_compile;
+	long long	last_compile;
 	int			finish;
 
 	i = 0;
@@ -33,11 +33,11 @@ int	check_burnout(t_codexion *data)
 	{
 		pthread_mutex_lock(&data->coders[i].lock);
 		last_compile = data->coders[i].last_compile_time;
-		finish = data->coders->has_finished;
+		finish = data->coders[i].has_finished;
 		pthread_mutex_unlock(&data->coders[i].lock);
 		if (finish == 0 && (get_time() - last_compile > data->time_to_burnout))
 		{
-			print_message(data, i, LOG_BURNS_OUT);
+			print_message(data, data->coders[i].number, LOG_BURNS_OUT);
 			return (1);
 		}
 		i++;
