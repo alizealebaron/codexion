@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 11:22:12 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 13:13:36 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,19 +138,9 @@ int 		has_finished(t_codexion *data);
 
 void    	join_thread(t_codexion *data);
 
-//     /scheduler
-// =====================
-
-void 		fifo(t_coder *coder, char *action);
-
-void		edf(t_coder *coder);
-
 void		debug(t_coder *coder);
 void		refactoring(t_coder *coder);
-void		update_coder_compile(t_coder *coder);
-
-t_queue		*get_last_coder(t_queue_controller *queue);
-void		add_fifo_queue(t_queue_controller *queue, t_coder *coder);
+void		compile(t_coder *coder);
 
 //     /utils
 // =====================

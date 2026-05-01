@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 12:14:23 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 13:12:41 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ static void	do_something(t_coder *coder, char *action)
 	{
 		if (strcmp(action, COMPILE) == 0)
 		{
-			print_message(coder->data, coder->number, LOG_COMPILING);
-			usleep(coder->data->time_to_compile * 1000);
 			update_coder_compile(coder);
 		}
 		else if (strcmp(action, DEBUG) == 0)

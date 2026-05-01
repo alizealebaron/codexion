@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:54 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 11:38:36 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 13:11:27 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,4 @@ void destroy_threads_and_mutex(t_codexion *data)
 	{
 		pthread_mutex_destroy(&data->dongles[i].lock);
 	}
-	
 }
