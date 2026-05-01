@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/05/01 13:12:15 by alebaron         ###   ########.fr        #
+#    Updated: 2026/05/01 16:03:28 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,11 +43,13 @@ LIB_SRCS = $(LIB_DIR)/codexion.c                   \
            $(LIB_DIR)/utils/exit_utils.c           \
            $(LIB_DIR)/utils/time_utils.c           \
            $(LIB_DIR)/utils/print_utils.c          \
-           $(LIB_DIR)/utils/debug_utils.c          \
+           $(LIB_DIR)/utils/queue_utils.c          \
 		   $(LIB_DIR)/routine/routines.c           \
 		   $(LIB_DIR)/routine/manage_threads.c     \
+		   $(LIB_DIR)/routine/manage_dongle.c      \
 		   $(LIB_DIR)/routine/simulation_check.c   \
 		   $(LIB_DIR)/routine/scheduler_utils.c    \
+		   $(LIB_DIR)/routine/scheduler.c          \
     
 
 LIB_OBJS = $(LIB_SRCS:%.c=${OBJ_DIR}/%.o)
@@ -83,7 +85,7 @@ re: fclean all
 
 run: re
 	@echo "$(GREEN)$(BOLD)Running $(NAME) with 4 coders...$(RESET)"
-	@./$(NAME) 4 800 200 200 200 5 10 fifo
+	@./$(NAME) 4 1500 200 200 200 5 10 fifo
 
 coin: re 
 	@echo "$(YELLOW)$(BOLD)                    $(RESET)"

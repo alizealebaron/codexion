@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:24 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 09:19:52 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 13:46:39 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ int	check_arg(int argc, char **argv)
 			return (0);
 		i++;
 	}
+	if (atoi(argv[1]) < 2)
+		return (0);
 	return (check_scheduler(argv[i]));
 }
 

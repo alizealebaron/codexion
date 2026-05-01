@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:51:49 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 10:42:48 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:49:30 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_codexion	*init_data(char **argv)
 		return (NULL);
 	pthread_mutex_init(&data->main_mutex, NULL);
 	pthread_mutex_init(&data->print_mutex, NULL);
-	pthread_mutex_init(&data->queue.mutex, NULL);
+	pthread_mutex_init(&data->queue_ctrl.mutex, NULL);
 	data->number_of_coders = atoi(argv[1]);
 	data->time_to_burnout = atoi(argv[2]);
 	data->time_to_compile = atoi(argv[3]);
@@ -35,9 +35,10 @@ t_codexion	*init_data(char **argv)
 	data->scheduler = argv[8];
 	data->is_sim_active = 1;
 	data->start_time = get_time();
+	data->queue_ctrl.first = NULL;
+	pthread_cond_init(&data->queue_ctrl.cond, NULL);
 	data->dongles = init_dongle(data->number_of_coders);
 	data->coders = init_coders(data->number_of_coders, data);
-	data->queue.first = NULL;
 	pthread_create(&data->main_thread, NULL, main_routine, data);
 	return (data);
 }

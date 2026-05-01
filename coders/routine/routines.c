@@ -6,14 +6,13 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 13:12:41 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:33:32 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
 static void	end_simulation(t_codexion *data);
-static void	do_something(t_coder *coder, char *action);
 
 void    *main_routine(void *arg)
 {
@@ -58,23 +57,22 @@ void    *coders_routine(void *arg)
 	return (NULL);
 }
 
-static void	do_something(t_coder *coder, char *action)
+void	do_something(t_coder *coder, char *action)
 {
 	if (is_simulation_active(coder->data) &&
 		coder->compiles_done < coder->data->nb_compiles_required)
 	{
 		if (strcmp(action, COMPILE) == 0)
 		{
-			update_coder_compile(coder);
+			if (strcmp(coder->data->scheduler, "fifo") == 0)
+				fifo(coder);
+			else
+				printf("EDF");
 		}
 		else if (strcmp(action, DEBUG) == 0)
-		{
 			debug(coder);
-		}
 		else
-		{
 			refactoring(coder);
-		}
 	}
 }
 

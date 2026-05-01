@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 13:13:36 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 15:36:11 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ typedef struct s_codexion
 	long long			start_time;
 	int					is_sim_active;
 
-	t_queue_controller	queue;
+	t_queue_controller	queue_ctrl;
 }			t_codexion;
 
 typedef struct s_dongle
@@ -131,6 +131,7 @@ t_codexion	*init_data(char **argv);
 
 void    	*main_routine(void *arg);
 void    	*coders_routine(void *arg);
+void		do_something(t_coder *coder, char *action);
 
 int			check_burnout(t_codexion *data);
 int  		is_simulation_active(t_codexion *data);
@@ -142,6 +143,13 @@ void		debug(t_coder *coder);
 void		refactoring(t_coder *coder);
 void		compile(t_coder *coder);
 
+void		wait_for_dongle(t_coder *coder);
+int			take_dongle(t_coder *coder);
+int			is_dongle_free(t_dongle *dongle);
+void		free_dongle(t_coder *coder);
+
+void		fifo(t_coder *coder);
+
 //     /utils
 // =====================
 
@@ -151,5 +159,9 @@ int			exit_program(void);
 void		free_all(t_codexion *args);
 
 void		print_message(t_codexion *data, int num_coder, char *action);
+
+t_queue		*get_last_one(t_queue_controller *ctrl);
+void		queue_add_back(t_queue_controller *ctrl, t_coder *new_coder);
+void		remove_first_one(t_queue_controller *ctrl);
 
 #endif
