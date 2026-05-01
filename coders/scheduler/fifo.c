@@ -6,67 +6,34 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 10:32:45 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 16:30:22 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:25:36 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-static void	compile_fifo(t_coder *coder);
-static void	update_cooldown(t_coder *coder, t_dongle *first, t_dongle *second);
-static void	print_and_compile(t_coder *coder);
+static void	add_queue(t_coder *coder);
 
-void fifo(t_coder *coder)
+void fifo(t_coder *coder, char *action)
 {
-	int	has_finished;
-
-	while (is_simulation_active(coder->data) == 1)
+	pthread_mutex_lock(&coder->data->queue.mutex);
+	if (strcmp(action, ADD_QUEUE) == 0)
 	{
-		pthread_mutex_lock(&coder->lock);
-		has_finished = coder->has_finished;
-		pthread_mutex_unlock(&coder->lock);
-		if (has_finished == 1)
-			break ;
-		compile_fifo(coder);
-		debug(coder);
-		refactoring(coder);
+		add_and_manage_queue(coder);
 	}
-}
-
-static void	compile_fifo(t_coder *coder)
-{
-	t_dongle	*first_dongle;
-	t_dongle	*second_dongle;
-
-	get_first_dongle(coder, &first_dongle, &second_dongle);
-	pthread_mutex_lock(&first_dongle->lock);
-	pthread_mutex_lock(&second_dongle->lock);
-	if (check_dongle_cd(first_dongle, second_dongle) == 0)
+	else
 	{
-		pthread_mutex_unlock(&second_dongle->lock);
-		pthread_mutex_unlock(&first_dongle->lock);
-		return ;
+		remove_queue(coder);
 	}
-	update_cooldown(coder, first_dongle, second_dongle);
-	pthread_mutex_unlock(&second_dongle->lock);
-	pthread_mutex_unlock(&first_dongle->lock);
-	print_and_compile(coder);
-	update_coder_compile(coder);
+	pthread_mutex_unlock(&coder->data->queue.mutex);
+	return (0);
 }
 
-static void	update_cooldown(t_coder *coder, t_dongle *first, t_dongle *second)
+static void	add_and_manage_queue(t_coder *coder)
 {
-	long long	time;
-
-	time = get_time();
-	first->cooldown = time + coder->data->dongle_cooldown;
-	second->cooldown = time + coder->data->dongle_cooldown;
-}
-
-static void	print_and_compile(t_coder *coder)
-{
-	print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
-	print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
-	print_message(coder->data, coder->number, LOG_COMPILING);
-	usleep(coder->data->time_to_compile);
+	t_codexion	*data;
+	
+	data = coder->data;
+	add_fifo_queue(&data->queue, coder);
+	
 }

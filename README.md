@@ -40,6 +40,7 @@
 - [Threads, mutex et programmation concurrente en C](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/)
 - [Manuel linux: timeval](https://man7.org/linux/man-pages/man3/timeval.3type.html)
 - [Manuel linux: usleep](https://man7.org/linux/man-pages/man3/usleep.3.html)
+- [Manuel linux: pthread_cond](http://manpagesfr.free.fr/man/man3/pthread_cond_init.3.html)
 
 ### Visualiseur de codexion
 

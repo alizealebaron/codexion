@@ -6,29 +6,37 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 13:12:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 15:34:08 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:23:04 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-void	get_first_dongle(t_coder *coder, t_dongle **first, t_dongle **second)
+void	add_fifo_queue(t_queue_controller *queue, t_coder *coder)
 {
-	if (coder->left_dongle->id < coder->right_dongle->id)
-	{
-		*first = coder->left_dongle;
-		*second = coder->right_dongle;
-	}
+	t_queue	*new_chain;
+	t_queue	*last;
+
+	new_chain = malloc(sizeof(t_queue));
+	new_chain->coder = coder;
+	new_chain->next = NULL;
+	last = get_last_coder(queue);
+	if (queue->first == NULL)
+		queue->first == new_chain;
 	else
 	{
-		*first = coder->right_dongle;
-		*second = coder->left_dongle;
+		last->next = new_chain;
 	}
 }
 
-int	check_dongle_cd(t_dongle *first, t_dongle *second)
+t_queue	*get_last_coder(t_queue_controller *queue)
 {
-	if (first->cooldown > get_time() || second->cooldown > get_time())
-		return (0);
-	return (1);
+	t_queue	*last;
+
+	last = queue->first;
+	while (last->next)
+	{
+		last = last->next;
+	}
+	return (last);
 }

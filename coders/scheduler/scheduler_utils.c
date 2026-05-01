@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 11:07:16 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 13:55:35 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:28:23 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ void	update_coder_compile(t_coder *coder)
 	if (coder->compiles_done >= coder->data->nb_compiles_required)
 		coder->has_finished = 1;
 	pthread_mutex_unlock(&coder->lock);
+}
+
+int	take_dongle(t_coder *coder)
+{
+	
 }

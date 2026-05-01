@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 16:27:40 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 11:22:12 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,34 +35,60 @@
 # define LOG_BURNS_OUT		"%lld %d burned out\n"
 # define LOG_SUCCESS		"All coders have compiled %d time. Good job !"
 
+// Action //
+# define TAKE			"takedongle"
+# define COMPILE		"compile"
+# define DEBUG			"debug"
+# define REFAC			"refac"
+# define BURNS			"burns_out"
+# define REMOVE_QUEUE	"remove_q"
+# define ADD_QUEUE		"add_q"
+
 // ==========================
 //         Structures
 // ==========================
 
-typedef struct s_codexion	t_codexion;
-typedef struct s_dongle		t_dongle;
-typedef struct s_coder		t_coder;
+typedef struct s_codexion			t_codexion;
+typedef struct s_dongle				t_dongle;
+typedef struct s_coder				t_coder;
+typedef struct s_queue				t_queue;
+typedef struct s_queue_controller	t_queue_controller;
+
+typedef struct s_queue
+{
+	t_coder			*coder;
+	struct s_queue	*next;
+}					t_queue;
+
+typedef struct s_queue_controller
+{
+	t_queue			*first;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+}					t_queue_controller;
 
 typedef struct s_codexion
 {
-	pthread_t		main_thread;
-	pthread_mutex_t	main_mutex;
-	pthread_mutex_t	print_mutex;
+	pthread_t			main_thread;
+	pthread_mutex_t		main_mutex;
+	pthread_mutex_t		print_mutex;
 
-	int			number_of_coders;
-	int			time_to_burnout;
-	int			time_to_compile;
-	int			time_to_debug;
-	int			time_to_refactor;
-	int			nb_compiles_required;
-	int			dongle_cooldown;
-	char		*scheduler;
+	int					number_of_coders;
+	int					time_to_burnout;
+	int					time_to_compile;
+	int					time_to_debug;
+	int					time_to_refactor;
+	int					nb_compiles_required;
+	int					dongle_cooldown;
+	char				*scheduler;
 
-	t_coder		*coders;
-	t_dongle	*dongles;
+	t_coder				*coders;
+	t_dongle			*dongles;
 
-	long long	start_time;
-	int			is_sim_active;
+	long long			start_time;
+	int					is_sim_active;
+
+	t_queue_controller	queue;
 }			t_codexion;
 
 typedef struct s_dongle
@@ -115,7 +141,7 @@ void    	join_thread(t_codexion *data);
 //     /scheduler
 // =====================
 
-void		fifo(t_coder *coder);
+void 		fifo(t_coder *coder, char *action);
 
 void		edf(t_coder *coder);
 
@@ -123,8 +149,8 @@ void		debug(t_coder *coder);
 void		refactoring(t_coder *coder);
 void		update_coder_compile(t_coder *coder);
 
-void		get_first_dongle(t_coder *coder, t_dongle **first, t_dongle **second);
-int			check_dongle_cd(t_dongle *first, t_dongle *second);
+t_queue		*get_last_coder(t_queue_controller *queue);
+void		add_fifo_queue(t_queue_controller *queue, t_coder *coder);
 
 //     /utils
 // =====================

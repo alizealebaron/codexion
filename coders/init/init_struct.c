@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:51:49 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 15:38:35 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:42:48 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_codexion	*init_data(char **argv)
 		return (NULL);
 	pthread_mutex_init(&data->main_mutex, NULL);
 	pthread_mutex_init(&data->print_mutex, NULL);
+	pthread_mutex_init(&data->queue.mutex, NULL);
 	data->number_of_coders = atoi(argv[1]);
 	data->time_to_burnout = atoi(argv[2]);
 	data->time_to_compile = atoi(argv[3]);
@@ -36,6 +37,7 @@ t_codexion	*init_data(char **argv)
 	data->start_time = get_time();
 	data->dongles = init_dongle(data->number_of_coders);
 	data->coders = init_coders(data->number_of_coders, data);
+	data->queue.first = NULL;
 	pthread_create(&data->main_thread, NULL, main_routine, data);
 	return (data);
 }
@@ -76,7 +78,7 @@ static t_coder	*init_coders(int nb_coders, t_codexion *data)
 		coders[i].number = i + 1;
 		coders[i].compiles_done = 0;
 		coders[i].has_finished = 0;
-		coders[i].last_compile_time = 0;
+		coders[i].last_compile_time = get_time();
 		coders[i].left_dongle = &dongles[i];
 		coders[i].right_dongle = &dongles[(i + 1) % nb_coders];
 		pthread_mutex_init(&coders[i].lock, NULL);

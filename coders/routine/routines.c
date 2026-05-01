@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/30 10:36:04 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/01 10:28:30 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,19 @@ void    *coders_routine(void *arg)
 	t_coder *coder;
 	
 	coder = (t_coder *)arg;
-	(void) coder;
-	if (strcmp(coder->data->scheduler, "fifo") == 0)
-		fifo(coder);
-	else
-		edf(coder);
+
+	while (is_simulation_active(coder->data) && coder->has_finished == 0)
+	{
+		if (strcmp(coder->data->scheduler, "fifo") == 0)
+			fifo(coder, ADD_QUEUE);
+		else
+			edf(coder);
+		do_something(coder, COMPILE);
+		if (strcmp(coder->data->scheduler, "fifo") == 0)
+			fifo(coder, REMOVE_QUEUE);
+		do_something(coder, DEBUG);
+		do_something(coder, REFAC);
+	}
 	return (NULL);
 }
 
