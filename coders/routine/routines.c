@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 15:33:32 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:13:58 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	do_something(t_coder *coder, char *action)
 			if (strcmp(coder->data->scheduler, "fifo") == 0)
 				fifo(coder);
 			else
-				printf("EDF");
+				edf(coder);
 		}
 		else if (strcmp(action, DEBUG) == 0)
 			debug(coder);
@@ -81,4 +81,10 @@ static void	end_simulation(t_codexion *data)
 	pthread_mutex_lock(&data->main_mutex);
 	data->is_sim_active = 0;
 	pthread_mutex_unlock(&data->main_mutex);
+    pthread_mutex_lock(&data->queue_ctrl.mutex);
+    pthread_cond_broadcast(&data->queue_ctrl.cond);
+    pthread_mutex_unlock(&data->queue_ctrl.mutex);
+    pthread_mutex_lock(&data->heap->mutex);
+    pthread_cond_broadcast(&data->heap->cond);
+    pthread_mutex_unlock(&data->heap->mutex);
 }

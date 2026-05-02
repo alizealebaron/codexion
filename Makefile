@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/05/02 12:51:16 by alebaron         ###   ########.fr        #
+#    Updated: 2026/05/02 13:13:12 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -86,7 +86,7 @@ re: fclean all
 
 run: re
 	@echo "$(GREEN)$(BOLD)Running $(NAME) with 4 coders...$(RESET)"
-	@./$(NAME) 4 1500 200 200 200 5 10 fifo
+	@./$(NAME) 4 1500 200 200 200 5 10 edf
 
 coin: re 
 	@echo "$(YELLOW)$(BOLD)                    $(RESET)"

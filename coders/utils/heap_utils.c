@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 11:46:45 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 12:50:43 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:16:37 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ static void	heap_reorganize(t_heap *heap, int index)
 	smallest = index;
 	if (left_child_index < heap->size &&
 		heap->binary_tree[left_child_index]->last_compile_time <
-		heap->binary_tree[index]->last_compile_time)
+		heap->binary_tree[smallest]->last_compile_time)
 		smallest = left_child_index;
 	if (right_child_index < heap->size &&
 		heap->binary_tree[right_child_index]->last_compile_time <
-		heap->binary_tree[index]->last_compile_time)
+		heap->binary_tree[smallest]->last_compile_time)
 		smallest = right_child_index;
 	if (smallest != index)
 	{

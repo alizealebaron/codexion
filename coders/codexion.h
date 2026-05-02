@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 12:32:56 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 12:56:10 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ typedef struct s_codexion
 	int					is_sim_active;
 
 	t_queue_controller	queue_ctrl;
-	t_heap				heap;
+	t_heap				*heap;
 }			t_codexion;
 
 typedef struct s_dongle

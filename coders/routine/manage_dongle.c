@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 12:22:05 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:11:28 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,25 @@ void	wait_for_dongle_fifo(t_coder *coder)
 
 void	wait_for_dongle_edf(t_coder *coder)
 {
-	(void) coder;
+	t_codexion	*data;
+	
+	data = coder->data;
+	pthread_mutex_lock(&data->heap->mutex);
+	heap_insert(data->heap, coder);
+	while (is_simulation_active(data) && (data->heap->binary_tree[0] == NULL ||
+		data->heap->binary_tree[0] != coder || take_dongle(coder) == 0))
+	{
+		if (is_simulation_active(data) && data->heap->binary_tree[0] != NULL &&
+			data->heap->binary_tree[0] == coder)
+		{
+			pthread_mutex_unlock(&data->heap->mutex);
+			usleep(1000);
+			pthread_mutex_lock(&data->heap->mutex);
+		}
+		else
+			pthread_cond_wait(&data->heap->cond, &data->heap->mutex);
+	}
+	pthread_mutex_unlock(&data->heap->mutex);
 }
 
 int	take_dongle(t_coder *coder)
@@ -81,5 +99,11 @@ void	free_dongle(t_coder *coder)
 		pthread_mutex_lock(&coder->data->queue_ctrl.mutex);
 		pthread_cond_broadcast(&coder->data->queue_ctrl.cond);
 		pthread_mutex_unlock(&coder->data->queue_ctrl.mutex);
+	}
+	else
+	{
+		pthread_mutex_lock(&coder->data->heap->mutex);
+		pthread_cond_broadcast(&coder->data->heap->cond);
+		pthread_mutex_unlock(&coder->data->heap->mutex);
 	}
 }
