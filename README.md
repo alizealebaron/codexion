@@ -38,6 +38,8 @@
 ### Outils de programmation en C
 
 - [Threads, mutex et programmation concurrente en C](https://www.codequoi.com/threads-mutex-et-programmation-concurrente-en-c/)
+- [Heap in C](https://www.geeksforgeeks.org/c/heap-in-c/)
+- [Heap in C programming made easy](https://nkugwamarkwilliam.medium.com/heap-in-c-programming-made-easy-e84a8b423660)
 - [Manuel linux: timeval](https://man7.org/linux/man-pages/man3/timeval.3type.html)
 - [Manuel linux: usleep](https://man7.org/linux/man-pages/man3/usleep.3.html)
 - [Manuel linux: pthread_cond](http://manpagesfr.free.fr/man/man3/pthread_cond_init.3.html)

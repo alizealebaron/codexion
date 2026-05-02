@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/05/01 16:03:28 by alebaron         ###   ########.fr        #
+#    Updated: 2026/05/02 12:51:16 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,6 +44,7 @@ LIB_SRCS = $(LIB_DIR)/codexion.c                   \
            $(LIB_DIR)/utils/time_utils.c           \
            $(LIB_DIR)/utils/print_utils.c          \
            $(LIB_DIR)/utils/queue_utils.c          \
+           $(LIB_DIR)/utils/heap_utils.c           \
 		   $(LIB_DIR)/routine/routines.c           \
 		   $(LIB_DIR)/routine/manage_threads.c     \
 		   $(LIB_DIR)/routine/manage_dongle.c      \

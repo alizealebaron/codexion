@@ -6,13 +6,13 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 15:50:52 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 12:22:05 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-void	wait_for_dongle(t_coder *coder)
+void	wait_for_dongle_fifo(t_coder *coder)
 {
 	t_codexion	*data;
 	
@@ -33,6 +33,11 @@ void	wait_for_dongle(t_coder *coder)
 			pthread_cond_wait(&data->queue_ctrl.cond, &data->queue_ctrl.mutex);
 	}
 	pthread_mutex_unlock(&data->queue_ctrl.mutex);
+}
+
+void	wait_for_dongle_edf(t_coder *coder)
+{
+	(void) coder;
 }
 
 int	take_dongle(t_coder *coder)

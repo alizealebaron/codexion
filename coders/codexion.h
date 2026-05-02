@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 15:36:11 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 12:32:56 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 # define LOG_BURNS_OUT		"%lld %d burned out\n"
 # define LOG_SUCCESS		"All coders have compiled %d time. Good job !"
 
-// Action //
 # define TAKE			"takedongle"
 # define COMPILE		"compile"
 # define DEBUG			"debug"
@@ -43,6 +42,8 @@
 # define BURNS			"burns_out"
 # define REMOVE_QUEUE	"remove_q"
 # define ADD_QUEUE		"add_q"
+
+# define MAX_CODERS		250
 
 // ==========================
 //         Structures
@@ -53,6 +54,7 @@ typedef struct s_dongle				t_dongle;
 typedef struct s_coder				t_coder;
 typedef struct s_queue				t_queue;
 typedef struct s_queue_controller	t_queue_controller;
+typedef struct s_heap				t_heap;
 
 typedef struct s_queue
 {
@@ -66,6 +68,14 @@ typedef struct s_queue_controller
 	pthread_mutex_t	mutex;
 	pthread_cond_t	cond;
 }					t_queue_controller;
+
+typedef struct s_heap
+{
+	t_coder			*binary_tree[MAX_CODERS];
+	int				size;
+	pthread_mutex_t	mutex;
+	pthread_cond_t	cond;
+}					t_heap;
 
 typedef struct s_codexion
 {
@@ -89,6 +99,7 @@ typedef struct s_codexion
 	int					is_sim_active;
 
 	t_queue_controller	queue_ctrl;
+	t_heap				heap;
 }			t_codexion;
 
 typedef struct s_dongle
@@ -143,12 +154,14 @@ void		debug(t_coder *coder);
 void		refactoring(t_coder *coder);
 void		compile(t_coder *coder);
 
-void		wait_for_dongle(t_coder *coder);
+void		wait_for_dongle_fifo(t_coder *coder);
+void		wait_for_dongle_edf(t_coder *coder);
 int			take_dongle(t_coder *coder);
 int			is_dongle_free(t_dongle *dongle);
 void		free_dongle(t_coder *coder);
 
 void		fifo(t_coder *coder);
+void		edf(t_coder *coder);
 
 //     /utils
 // =====================
@@ -163,5 +176,8 @@ void		print_message(t_codexion *data, int num_coder, char *action);
 t_queue		*get_last_one(t_queue_controller *ctrl);
 void		queue_add_back(t_queue_controller *ctrl, t_coder *new_coder);
 void		remove_first_one(t_queue_controller *ctrl);
+
+void		heap_insert(t_heap *heap, t_coder *coder);
+t_coder		*heap_remove_first(t_heap *heap);
 
 #endif
