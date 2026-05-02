@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:11:28 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 14:01:53 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int	take_dongle(t_coder *coder)
 		{
 			print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
 			print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
+			coder->left_dongle->is_lock = 1;
+			coder->right_dongle->is_lock = 1;
 			return (1);
 		}
 		pthread_mutex_unlock(&coder->left_dongle->lock);
@@ -92,8 +94,16 @@ void	free_dongle(t_coder *coder)
 	time = get_time();
 	coder->left_dongle->cooldown = time + coder->data->dongle_cooldown;
 	coder->right_dongle->cooldown = time + coder->data->dongle_cooldown;
-	pthread_mutex_unlock(&coder->left_dongle->lock);
-	pthread_mutex_unlock(&coder->right_dongle->lock);
+	if (coder->left_dongle->is_lock)
+	{
+		pthread_mutex_unlock(&coder->left_dongle->lock);
+		coder->left_dongle->is_lock = 0;
+	}
+	if (coder->right_dongle->is_lock)
+	{
+		pthread_mutex_unlock(&coder->right_dongle->lock);
+		coder->right_dongle->is_lock = 0;
+	}
 	if (strcmp(coder->data->scheduler, "fifo") == 0)
 	{
 		pthread_mutex_lock(&coder->data->queue_ctrl.mutex);

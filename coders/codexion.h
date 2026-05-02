@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 12:56:10 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:52:34 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct s_dongle
 {
 	long long		cooldown;
 	int				id;
+	int				is_lock;
 	pthread_mutex_t	lock;
 }			t_dongle;
 

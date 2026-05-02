@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 11:46:45 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:16:37 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:58:32 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,28 @@ static void	heap_reorganize(t_heap *heap, int value);
 
 void	heap_insert(t_heap *heap, t_coder *coder)
 {
-	int		i;
+	int			i;
+	long long	coder_time;
 
+	pthread_mutex_lock(&coder->lock);
+	coder_time = coder->last_compile_time;
+	pthread_mutex_unlock(&coder->lock);
 	i = heap->size;
 	heap->binary_tree[i] = coder;
-	while (i != 0 && heap->binary_tree[(i - 1) / 2]->last_compile_time >
-		heap->binary_tree[i]->last_compile_time) 
+	while (i != 0)
 	{
-        t_coder *temp = heap->binary_tree[(i - 1) / 2];
-        heap->binary_tree[(i - 1) / 2] = heap->binary_tree[i];
-        heap->binary_tree[i] = temp;
-        i = (i - 1) / 2;
-    }
+		int parent_i = (i - 1) / 2;
+		long long parent_time;
+		pthread_mutex_lock(&heap->binary_tree[parent_i]->lock);
+		parent_time = heap->binary_tree[parent_i]->last_compile_time;
+		pthread_mutex_unlock(&heap->binary_tree[parent_i]->lock);
+		if (parent_time <= coder_time)
+			break;
+		t_coder *temp = heap->binary_tree[parent_i];
+		heap->binary_tree[parent_i] = heap->binary_tree[i];
+		heap->binary_tree[i] = temp;
+		i = parent_i;
+	}
 	heap->size++;
 }
 

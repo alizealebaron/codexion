@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:51:49 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:18:34 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/02 13:52:50 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ static t_dongle	*init_dongle(int nb_dongle)
 	{
 		dongles[i].id = i;
 		dongles[i].cooldown = 0;
+		dongles[i].is_lock = 0;
 		pthread_mutex_init(&dongles[i].lock, NULL);
 		i++;
 	}
