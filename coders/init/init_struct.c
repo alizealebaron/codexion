@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/16 09:51:49 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:52:50 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:50:28 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static t_dongle	*init_dongle(int nb_dongle);
 static t_coder	*init_coders(int nb_coders, t_codexion *data);
 static void		init_mutex(t_codexion *data);
+static void		init_end_data(t_codexion *data);
 
 t_codexion	*init_data(char **argv)
 {
@@ -40,12 +41,17 @@ t_codexion	*init_data(char **argv)
 	data->is_sim_active = 1;
 	data->start_time = get_time();
 	data->queue_ctrl.first = NULL;
+	init_end_data(data);
+	return (data);
+}
+
+static void	init_end_data(t_codexion *data)
+{
 	pthread_cond_init(&data->queue_ctrl.cond, NULL);
 	pthread_cond_init(&data->heap->cond, NULL);
 	data->dongles = init_dongle(data->number_of_coders);
 	data->coders = init_coders(data->number_of_coders, data);
 	pthread_create(&data->main_thread, NULL, main_routine, data);
-	return (data);
 }
 
 static void	init_mutex(t_codexion *data)

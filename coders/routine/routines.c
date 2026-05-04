@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/04 13:17:45 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:55:30 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	end_simulation(t_codexion *data);
 
-void    *main_routine(void *arg)
+void	*main_routine(void *arg)
 {
 	t_codexion	*data;
 
 	data = (t_codexion *)arg;
 	while (is_simulation_active(data))
 	{
-		if(check_burnout(data))
+		if (check_burnout(data))
 		{
 			end_simulation(data);
 			return (NULL);
@@ -34,16 +34,14 @@ void    *main_routine(void *arg)
 		}
 		usleep(100);
 	}
-
 	return (NULL);
 }
 
-void    *coders_routine(void *arg)
+void	*coders_routine(void *arg)
 {
-	t_coder *coder;
-	
-	coder = (t_coder *)arg;
+	t_coder	*coder;
 
+	coder = (t_coder *)arg;
 	while (is_simulation_active(coder->data))
 	{
 		do_something(coder, COMPILE);
@@ -59,8 +57,8 @@ void    *coders_routine(void *arg)
 
 void	do_something(t_coder *coder, char *action)
 {
-	if (is_simulation_active(coder->data) &&
-		coder->compiles_done < coder->data->nb_compiles_required)
+	if (is_simulation_active(coder->data)
+		&& coder->compiles_done < coder->data->nb_compiles_required)
 	{
 		if (strcmp(action, COMPILE) == 0)
 		{
@@ -70,13 +68,9 @@ void	do_something(t_coder *coder, char *action)
 				edf(coder);
 		}
 		else if (strcmp(action, DEBUG) == 0)
-		{
 			debug(coder);
-		}
 		else
-		{
 			refactoring(coder);
-		}
 	}
 }
 
@@ -85,10 +79,10 @@ static void	end_simulation(t_codexion *data)
 	pthread_mutex_lock(&data->main_mutex);
 	data->is_sim_active = 0;
 	pthread_mutex_unlock(&data->main_mutex);
-    pthread_mutex_lock(&data->queue_ctrl.mutex);
-    pthread_cond_broadcast(&data->queue_ctrl.cond);
-    pthread_mutex_unlock(&data->queue_ctrl.mutex);
-    pthread_mutex_lock(&data->heap->mutex);
-    pthread_cond_broadcast(&data->heap->cond);
-    pthread_mutex_unlock(&data->heap->mutex);
+	pthread_mutex_lock(&data->queue_ctrl.mutex);
+	pthread_cond_broadcast(&data->queue_ctrl.cond);
+	pthread_mutex_unlock(&data->queue_ctrl.mutex);
+	pthread_mutex_lock(&data->heap->mutex);
+	pthread_cond_broadcast(&data->heap->cond);
+	pthread_mutex_unlock(&data->heap->mutex);
 }

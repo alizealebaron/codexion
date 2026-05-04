@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/30 11:07:16 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 15:57:26 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:55:48 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,3 @@ void	compile(t_coder *coder)
 	pthread_mutex_unlock(&coder->lock);
 	usleep(coder->data->time_to_compile * 1000);
 }
-

@@ -6,20 +6,20 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/28 14:57:28 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/01 12:03:31 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:56:51 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-int  is_simulation_active(t_codexion *data)
+int	is_simulation_active(t_codexion *data)
 {
-	int is_active;
-    
+	int	is_active;
+
 	pthread_mutex_lock(&data->main_mutex);
 	is_active = data->is_sim_active;
 	pthread_mutex_unlock(&data->main_mutex);
-	return(is_active);
+	return (is_active);
 }
 
 int	check_burnout(t_codexion *data)
@@ -45,7 +45,7 @@ int	check_burnout(t_codexion *data)
 	return (0);
 }
 
-int has_finished(t_codexion *data)
+int	has_finished(t_codexion *data)
 {
 	int	i;
 	int	nb_finish;
@@ -60,5 +60,5 @@ int has_finished(t_codexion *data)
 		pthread_mutex_unlock(&data->coders[i].lock);
 		i++;
 	}
-	return(nb_finish);
+	return (nb_finish);
 }

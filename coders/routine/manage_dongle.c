@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/04 16:58:12 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:52:10 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,16 @@
 void	wait_for_dongle_fifo(t_coder *coder)
 {
 	t_codexion	*data;
-	
+
 	data = coder->data;
 	pthread_mutex_lock(&data->queue_ctrl.mutex);
 	queue_add_back(&data->queue_ctrl, coder);
-	while (is_simulation_active(data) && (data->queue_ctrl.first == NULL ||
-		data->queue_ctrl.first->coder != coder || take_dongle(coder) == 0))
+	while (is_simulation_active(data) && (data->queue_ctrl.first == NULL
+			|| data->queue_ctrl.first->coder != coder
+			|| take_dongle(coder) == 0))
 	{
-		if (is_simulation_active(data) && data->queue_ctrl.first != NULL &&
-			data->queue_ctrl.first->coder == coder)
+		if (is_simulation_active(data) && data->queue_ctrl.first != NULL
+			&& data->queue_ctrl.first->coder == coder)
 		{
 			pthread_mutex_unlock(&data->queue_ctrl.mutex);
 			usleep(1000);
@@ -38,15 +39,15 @@ void	wait_for_dongle_fifo(t_coder *coder)
 void	wait_for_dongle_edf(t_coder *coder)
 {
 	t_codexion	*data;
-	
+
 	data = coder->data;
 	pthread_mutex_lock(&data->heap->mutex);
 	heap_insert(data->heap, coder);
-	while (is_simulation_active(data) && (data->heap->binary_tree[0] == NULL ||
-		data->heap->binary_tree[0] != coder || take_dongle(coder) == 0))
+	while (is_simulation_active(data) && (data->heap->binary_tree[0] == NULL
+			|| data->heap->binary_tree[0] != coder || take_dongle(coder) == 0))
 	{
-		if (is_simulation_active(data) && data->heap->binary_tree[0] != NULL &&
-			data->heap->binary_tree[0] == coder)
+		if (is_simulation_active(data) && data->heap->binary_tree[0] != NULL
+			&& data->heap->binary_tree[0] == coder)
 		{
 			pthread_mutex_unlock(&data->heap->mutex);
 			usleep(1000);

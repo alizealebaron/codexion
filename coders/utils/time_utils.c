@@ -6,16 +6,16 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 14:09:15 by alebaron          #+#    #+#             */
-/*   Updated: 2026/04/28 13:40:58 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 18:06:08 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-long long get_time(void)
+long long	get_time(void)
 {
-    struct timeval start;
+	struct timeval	start;
 
-    gettimeofday(&start, NULL);
-    return ((start.tv_sec * 1000) + (start.tv_usec / 1000));
+	gettimeofday(&start, NULL);
+	return ((start.tv_sec * 1000) + (start.tv_usec / 1000));
 }

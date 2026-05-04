@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/04 17:00:50 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/04 17:07:59 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:47:30 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	destroy_mutex(t_codexion *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < data->number_of_coders)

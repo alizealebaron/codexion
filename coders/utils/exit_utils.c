@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:54 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 12:57:16 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:57:39 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	free_all(t_codexion *args)
 	free(args);
 }
 
-void destroy_threads_and_mutex(t_codexion *data)
+void	destroy_threads_and_mutex(t_codexion *data)
 {
 	int	i;
 
