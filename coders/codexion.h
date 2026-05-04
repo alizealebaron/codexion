@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:52:34 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 10:46:13 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,9 @@ void    	*main_routine(void *arg);
 void    	*coders_routine(void *arg);
 void		do_something(t_coder *coder, char *action);
 
+void		broadcast_queue(t_codexion *data);
+void		get_ordered_dongles(t_coder *coder, t_dongle **first, t_dongle **second);
+
 int			check_burnout(t_codexion *data);
 int  		is_simulation_active(t_codexion *data);
 int 		has_finished(t_codexion *data);
@@ -180,5 +183,7 @@ void		remove_first_one(t_queue_controller *ctrl);
 
 void		heap_insert(t_heap *heap, t_coder *coder);
 t_coder		*heap_remove_first(t_heap *heap);
+
+void 		print_queue_numbers(t_queue_controller *controller);
 
 #endif

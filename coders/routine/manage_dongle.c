@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 14:01:53 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 11:31:19 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,21 +60,27 @@ void	wait_for_dongle_edf(t_coder *coder)
 
 int	take_dongle(t_coder *coder)
 {
-	pthread_mutex_lock(&coder->right_dongle->lock);
-	if (coder->right_dongle->cooldown <= get_time())
+	t_dongle	*first;
+	t_dongle	*second;
+
+	get_ordered_dongles(coder, &first, &second);
+	pthread_mutex_lock(&first->lock);
+	if (first->cooldown <= get_time())
 	{
-		pthread_mutex_lock(&coder->left_dongle->lock);
-		if (coder->left_dongle->cooldown <= get_time())
+		pthread_mutex_lock(&second->lock);
+		if (second->cooldown <= get_time())
 		{
 			print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
 			print_message(coder->data, coder->number, LOG_TAKE_DONGLE);
 			coder->left_dongle->is_lock = 1;
 			coder->right_dongle->is_lock = 1;
+			pthread_mutex_unlock(&second->lock);
+			pthread_mutex_unlock(&first->lock);
 			return (1);
 		}
-		pthread_mutex_unlock(&coder->left_dongle->lock);
+		pthread_mutex_unlock(&second->lock);
 	}
-	pthread_mutex_unlock(&coder->right_dongle->lock);
+	pthread_mutex_unlock(&first->lock);
 	return (0);
 }
 
@@ -89,31 +95,21 @@ int	is_dongle_free(t_dongle *dongle)
 
 void	free_dongle(t_coder *coder)
 {
-	long long time;
+	long long	time;
+	t_dongle	*first;
+	t_dongle	*second;
 
 	time = get_time();
+	get_ordered_dongles(coder, &first, &second);
+	pthread_mutex_lock(&first->lock);
+	pthread_mutex_lock(&second->lock);
+	if (coder->left_dongle->is_lock)
+		coder->left_dongle->is_lock = 0;
+	if (coder->right_dongle->is_lock)
+		coder->right_dongle->is_lock = 0;
 	coder->left_dongle->cooldown = time + coder->data->dongle_cooldown;
 	coder->right_dongle->cooldown = time + coder->data->dongle_cooldown;
-	if (coder->left_dongle->is_lock)
-	{
-		pthread_mutex_unlock(&coder->left_dongle->lock);
-		coder->left_dongle->is_lock = 0;
-	}
-	if (coder->right_dongle->is_lock)
-	{
-		pthread_mutex_unlock(&coder->right_dongle->lock);
-		coder->right_dongle->is_lock = 0;
-	}
-	if (strcmp(coder->data->scheduler, "fifo") == 0)
-	{
-		pthread_mutex_lock(&coder->data->queue_ctrl.mutex);
-		pthread_cond_broadcast(&coder->data->queue_ctrl.cond);
-		pthread_mutex_unlock(&coder->data->queue_ctrl.mutex);
-	}
-	else
-	{
-		pthread_mutex_lock(&coder->data->heap->mutex);
-		pthread_cond_broadcast(&coder->data->heap->cond);
-		pthread_mutex_unlock(&coder->data->heap->mutex);
-	}
+	pthread_mutex_unlock(&second->lock);
+	pthread_mutex_unlock(&first->lock);
+	broadcast_queue(coder->data);
 }

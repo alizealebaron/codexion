@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/04/27 13:07:06 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:13:58 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 10:33:54 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void    *coders_routine(void *arg)
 	t_coder *coder;
 	
 	coder = (t_coder *)arg;
+	usleep(coder->number * 10000);
 
 	while (is_simulation_active(coder->data))
 	{
@@ -68,12 +69,20 @@ void	do_something(t_coder *coder, char *action)
 				fifo(coder);
 			else
 				edf(coder);
+			broadcast_queue(coder->data);
 		}
 		else if (strcmp(action, DEBUG) == 0)
+		{
 			debug(coder);
+			broadcast_queue(coder->data);
+		}
 		else
+		{
 			refactoring(coder);
+			broadcast_queue(coder->data);
+		}
 	}
+	broadcast_queue(coder->data);
 }
 
 static void	end_simulation(t_codexion *data)
