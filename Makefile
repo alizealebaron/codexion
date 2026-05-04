@@ -6,7 +6,7 @@
 #    By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/02/03 12:13:28 by alebaron          #+#    #+#              #
-#    Updated: 2026/05/04 10:39:25 by alebaron         ###   ########.fr        #
+#    Updated: 2026/05/04 17:12:22 by alebaron         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,7 @@ LIB_SRCS = $(LIB_DIR)/codexion.c                   \
 		   $(LIB_DIR)/routine/simulation_check.c   \
 		   $(LIB_DIR)/routine/scheduler_utils.c    \
 		   $(LIB_DIR)/routine/scheduler.c          \
+		   $(LIB_DIR)/cleaning/destroy_mutex.c     \
     
 
 LIB_OBJS = $(LIB_SRCS:%.c=${OBJ_DIR}/%.o)
@@ -88,7 +89,7 @@ re: fclean all
 
 run: re
 	@echo "$(GREEN)$(BOLD)Running $(NAME) with 4 coders...$(RESET)"
-	@./$(NAME) 4 1500 200 200 200 5 10 fifo
+	@./$(NAME) 4 200 200 200 200 5 10 edf
 
 coin: re 
 	@echo "$(YELLOW)$(BOLD)                    $(RESET)"

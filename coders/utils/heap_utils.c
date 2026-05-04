@@ -6,13 +6,14 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/02 11:46:45 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/02 13:58:32 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:53:01 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../codexion.h"
 
-static void	heap_reorganize(t_heap *heap, int value);
+static void			heap_reorganize(t_heap *heap, int value);
+static long long	get_index_time(t_heap *heap, int index);
 
 void	heap_insert(t_heap *heap, t_coder *coder)
 {
@@ -55,18 +56,20 @@ static void	heap_reorganize(t_heap *heap, int index)
 	int	left_child_index;
 	int	right_child_index;
 	int	smallest;
+	long long	index_time;
 
 	left_child_index = 2 * index + 1;
 	right_child_index = 2 * index + 2;
 	smallest = index;
-	if (left_child_index < heap->size &&
-		heap->binary_tree[left_child_index]->last_compile_time <
-		heap->binary_tree[smallest]->last_compile_time)
-		smallest = left_child_index;
-	if (right_child_index < heap->size &&
-		heap->binary_tree[right_child_index]->last_compile_time <
-		heap->binary_tree[smallest]->last_compile_time)
-		smallest = right_child_index;
+	index_time = get_index_time(heap, index);
+	if (left_child_index < heap->size)
+	{
+		if (get_index_time(heap, left_child_index) < index_time)
+			smallest = left_child_index;
+	}
+	if (right_child_index < heap->size)
+		if (get_index_time(heap, right_child_index) < get_index_time(heap, smallest))
+			smallest = right_child_index;
 	if (smallest != index)
 	{
 		t_coder *temp = heap->binary_tree[index];
@@ -74,4 +77,14 @@ static void	heap_reorganize(t_heap *heap, int index)
         heap->binary_tree[smallest] = temp;
 		heap_reorganize(heap, smallest);
 	}
+}
+
+static long long get_index_time(t_heap *heap, int index)
+{
+	long long	time;
+
+	pthread_mutex_lock(&heap->binary_tree[index]->lock);
+	time = heap->binary_tree[index]->last_compile_time;
+	pthread_mutex_unlock(&heap->binary_tree[index]->lock);
+	return (time);
 }

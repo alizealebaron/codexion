@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/05 14:10:42 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/04 10:46:13 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 17:11:37 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@
 //         Consts
 // ==========================
 
-# define LOG_TAKE_DONGLE	"%lld %d has taken dongle\n"
-# define LOG_COMPILING		"%lld %d is compiling\n"
-# define LOG_DEBUGGING		"%lld %d is debugging\n"
-# define LOG_REFACTOR		"%lld %d is refactoring\n"
-# define LOG_BURNS_OUT		"%lld %d burned out\n"
+# define LOG_TAKE_DONGLE	"%4lld %d has taken dongle\n"
+# define LOG_COMPILING		"%4lld %d is compiling\n"
+# define LOG_DEBUGGING		"%4lld %d is debugging\n"
+# define LOG_REFACTOR		"%4lld %d is refactoring\n"
+# define LOG_BURNS_OUT		"%4lld %d burned out\n"
 # define LOG_SUCCESS		"All coders have compiled %d time. Good job !"
 
 # define TAKE			"takedongle"
@@ -185,5 +185,10 @@ void		heap_insert(t_heap *heap, t_coder *coder);
 t_coder		*heap_remove_first(t_heap *heap);
 
 void 		print_queue_numbers(t_queue_controller *controller);
+
+//     /cleaning
+// =====================
+
+void		destroy_mutex(t_codexion *data);
 
 #endif

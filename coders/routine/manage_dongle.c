@@ -6,7 +6,7 @@
 /*   By: alebaron <alebaron@student.42lehavre.fr    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/01 14:55:29 by alebaron          #+#    #+#             */
-/*   Updated: 2026/05/04 11:31:19 by alebaron         ###   ########.fr       */
+/*   Updated: 2026/05/04 16:58:12 by alebaron         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	take_dongle(t_coder *coder)
 int	is_dongle_free(t_dongle *dongle)
 {
 	pthread_mutex_lock(&dongle->lock);
-	if (dongle->cooldown > get_time())
+	if (dongle->cooldown > get_time() || dongle->is_lock == 1)
 		return (0);
 	pthread_mutex_unlock(&dongle->lock);
 	return (1);
