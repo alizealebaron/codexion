@@ -1,33 +1,6 @@
-<p align="center">
-  <img src="https://github.com/alizealebaron/alizealebaron/blob/main/assets/codexion_simple.png" width="120"/>
-</p>
-<h3 align="center">
-  <em>Master the race for resources before the deadline masters you.</em>
-</h3>
+*This project has been created as part of the 42 curriculum by alebaron.*
 
----
-
-<div align="center">
-  <p>
-      <!-- <img src="https://img.shields.io/badge/score-125%20%2F%20100-success?style=for-the-badge" /> -->
-      <img src="https://img.shields.io/github/languages/count/alizealebaron/codexion?style=for-the-badge&logo=" />
-      <img src="https://img.shields.io/github/languages/top/alizealebaron/codexion?style=for-the-badge" />
-      <img src="https://img.shields.io/github/last-commit/alizealebaron/codexion?style=for-the-badge" />
-  </p>
-</div>
-
-## ⚠️ Avant propos
-
-- **Portfolio :** Ce repetoire se concentre sur un seul sujet. Vous pouvez retrouver tous mes projets sur mon [profil](https://github.com/alizealebaron).
-- **Sujet :** Conformément aux règles de 42, vous ne trouverez pas le sujet de l'exercice dans ce répertoire.
-- **État du projet:** Le code est exactement le même que lorsqu'il est validé. Il ne sera pas mis à jour même s'il contient des erreurs.
-- **Aide & Licence :** Ce repertoire est principalement là pour vous aider à faire votre propre code. Évitez de copier / coller sans comprendre le code.
-
-## 🦆 Status
-
-**Commencé le :** 03/02/2025
-
-**Rendu le :** Non rendu.
+# Codexion: Maîtrisez la course aux ressources avant la date limite
 
 ## Description
 
@@ -328,4 +301,3 @@ Ce projet est sous licence CC0 1.0 Universal (domaine public).
 ---
 
 **Dernière modification**: 05 avril 2026
-**Contact :** alebaron@student.42lehavre.fr
