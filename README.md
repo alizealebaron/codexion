@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/alizealebaron/alizealebaron/blob/main/assets/codexion_simple.png" width="120"/>
+  <img src="https://github.com/alizealebaron/alizealebaron/blob/main/assets/codexion_simple.png" width="120"/> 
 </p>
 <h3 align="center">
   <em>Master the race for resources before the deadline masters you.</em>
